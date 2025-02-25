@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -O3 -g -std=c++11 -Wall -fopenmp
+CXXFLAGS = -O3 -g -std=c++20 -Wall -fopenmp
 
 SRCS = main.cpp ConjugateGradients.cpp Laplacian.cpp PointwiseOps.cpp Reductions.cpp Utilities.cpp
 OBJS = $(SRCS:.cpp=.o)
