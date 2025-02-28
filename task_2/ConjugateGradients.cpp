@@ -59,7 +59,6 @@ void ConjugateGradients(float (&x)[XDIM][YDIM][ZDIM],
 
         // Algorithm : Line 6
         laplacian_inner_product_timer.Restart();
-        // ComputeLaplacian(p, z);
         float sigma = MergedComputeLaplacianInnerProduct(p, z);
         laplacian_inner_product_timer.Pause();
 
@@ -101,7 +100,6 @@ void ConjugateGradients(float (&x)[XDIM][YDIM][ZDIM],
 
         // Algorithm : Line 16
         saxpy_timer_4.Restart();
-        // MergedSaxpy(p, x, r, x, alpha, beta);
         MergedSaxpy(x, p, r, alpha, beta);
         saxpy_timer_4.Pause();
 
