@@ -7,7 +7,9 @@ void Copy(const float (&x)[XDIM][YDIM][ZDIM], float (&y)[XDIM][YDIM][ZDIM]) {
             for (int k = 1; k < ZDIM - 1; k++) y[i][j][k] = x[i][j][k];
 }
 
-void Saxpy(const float (&x)[XDIM][YDIM][ZDIM], const float (&y)[XDIM][YDIM][ZDIM], float (&z)[XDIM][YDIM][ZDIM],
+void Saxpy(const float (&x)[XDIM][YDIM][ZDIM],
+           const float (&y)[XDIM][YDIM][ZDIM],
+           float (&z)[XDIM][YDIM][ZDIM],
            const float scale) {
     // Should we use OpenMP parallel for here?
     for (int i = 1; i < XDIM - 1; i++)

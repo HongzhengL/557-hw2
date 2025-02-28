@@ -25,8 +25,11 @@ void InitializeProblem(float (&x)[XDIM][YDIM][ZDIM], float (&b)[XDIM][YDIM][ZDIM
         for (int j = XDIM / 4; j < 3 * (XDIM / 4); j++) x[i][j][0] = 1.;
 }
 
-void WriteAsImage(const std::string& filenamePrefix, const float (&x)[XDIM][YDIM][ZDIM], const int count,
-                  const int axis, const int slice) {
+void WriteAsImage(const std::string& filenamePrefix,
+                  const float (&x)[XDIM][YDIM][ZDIM],
+                  const int count,
+                  const int axis,
+                  const int slice) {
     std::ostringstream filename;
     filename << filenamePrefix << "." << std::setfill('0') << std::setw(4) << count << ".pgm";
 

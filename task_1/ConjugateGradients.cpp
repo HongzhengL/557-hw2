@@ -26,8 +26,12 @@ extern Timer saxpy_timer_3;
 extern Timer saxpy_timer_4;
 extern Timer saxpy_timer_5;
 
-void ConjugateGradients(float (&x)[XDIM][YDIM][ZDIM], const float (&f)[XDIM][YDIM][ZDIM], float (&p)[XDIM][YDIM][ZDIM],
-                        float (&r)[XDIM][YDIM][ZDIM], float (&z)[XDIM][YDIM][ZDIM], const bool writeIterations) {
+void ConjugateGradients(float (&x)[XDIM][YDIM][ZDIM],
+                        const float (&f)[XDIM][YDIM][ZDIM],
+                        float (&p)[XDIM][YDIM][ZDIM],
+                        float (&r)[XDIM][YDIM][ZDIM],
+                        float (&z)[XDIM][YDIM][ZDIM],
+                        const bool writeIterations) {
     // Algorithm : Line 2
     laplacian_timer_1.Restart();
     ComputeLaplacian(x, z);
