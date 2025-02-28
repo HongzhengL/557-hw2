@@ -30,7 +30,7 @@ Utilities.o: Utilities.cpp Utilities.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 MergedOp.o: MergedOp.cpp MergedOp.h
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -fno-strict-aliasing -c $< -o $@
 
 clean:
 	rm -f $(OBJS) $(TARGET) $(TEMP_FILES)

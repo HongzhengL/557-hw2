@@ -101,7 +101,8 @@ void ConjugateGradients(float (&x)[XDIM][YDIM][ZDIM],
 
         // Algorithm : Line 16
         saxpy_timer_4.Restart();
-        MergedSaxpy(p, x, r, x, alpha, beta);
+        // MergedSaxpy(p, x, r, x, alpha, beta);
+        MergedSaxpy(x, p, r, alpha, beta);
         saxpy_timer_4.Pause();
 
         // if (writeIterations) WriteAsImage("x", x, k, 0, 127);

@@ -52,7 +52,6 @@ int main(int argc, char *argv[]) {
     timers.push_back(&saxpy_timer_2);
     timers.push_back(&saxpy_timer_3);
     timers.push_back(&saxpy_timer_4);
-    ;
 
     // clang-format off
     std::vector<std::string> timer_names = {
@@ -67,7 +66,7 @@ int main(int argc, char *argv[]) {
         "Saxpy(z, f, r, -1)                       ",
         "Saxpy(z, r, r, -alpha)                   ",
         "Saxpy(p, x, x, alpha)                    ",
-        "MergedSaxpy(p, x, r, x, alpha, beta)     "
+        "MergedSaxpy(x, p, r, alpha, beta)        "
     };
     // clang-format on
 
