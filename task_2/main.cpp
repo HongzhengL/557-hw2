@@ -46,7 +46,6 @@ int main(int argc, char *argv[]) {
     timers.push_back(&copy_timer_1);
     timers.push_back(&copy_timer_2);
     timers.push_back(&inner_product_timer_1);
-    timers.push_back(&inner_product_timer_2);
     timers.push_back(&inner_product_timer_3);
     timers.push_back(&norm_timer_1);
     timers.push_back(&norm_timer_2);
@@ -63,7 +62,6 @@ int main(int argc, char *argv[]) {
         "Copy(r, p)                          ",
         "Copy(r, z)                          ",
         "InnerProduct(p, r)                  ",
-        "InnerProduct(p, z)                  ",
         "InnerProduct(z, r)                  ",
         "Norm(r)                             ",
         "Norm(r)                             ",

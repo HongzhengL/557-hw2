@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Laplacian.h"
+#include "MergedOp.h"
 #include "Parameters.h"
 #include "PointwiseOps.h"
 #include "Reductions.h"
@@ -59,11 +60,9 @@ void ConjugateGradients(float (&x)[XDIM][YDIM][ZDIM],
 
         // Algorithm : Line 6
         laplacian_timer_2.Restart();
-        ComputeLaplacian(p, z);
+        // ComputeLaplacian(p, z);
+        float sigma = MergedComputeLaplacianInnerProduct(p, z);
         laplacian_timer_2.Pause();
-        inner_product_timer_2.Restart();
-        float sigma = InnerProduct(p, z);
-        inner_product_timer_2.Pause();
 
         // Algorithm : Line 7
         float alpha = rho / sigma;
