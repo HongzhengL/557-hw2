@@ -9,13 +9,14 @@
 -   Compile commands:
     ```bash
     $ make -j
-    g++ -O3 -g -std=c++23 -Wall -fopenmp -c main.cpp -o main.o
-    g++ -O3 -g -std=c++23 -Wall -fopenmp -c ConjugateGradients.cpp -o ConjugateGradients.o
-    g++ -O3 -g -std=c++23 -Wall -fopenmp -c Laplacian.cpp -o Laplacian.o
-    g++ -O3 -g -std=c++23 -Wall -fopenmp -c PointwiseOps.cpp -o PointwiseOps.o
-    g++ -O3 -g -std=c++23 -Wall -fopenmp -c Reductions.cpp -o Reductions.o
-    g++ -O3 -g -std=c++23 -Wall -fopenmp -c Utilities.cpp -o Utilities.o
-    g++ main.o ConjugateGradients.o Laplacian.o PointwiseOps.o Reductions.o Utilities.o -o solver -fopenmp
+    g++ -O3 -g -std=c++20 -Wall -fopenmp -c main.cpp -o main.o
+    g++ -O3 -g -std=c++20 -Wall -fopenmp -c ConjugateGradients.cpp -o ConjugateGradients.o
+    g++ -O3 -g -std=c++20 -Wall -fopenmp -c Laplacian.cpp -o Laplacian.o
+    g++ -O3 -g -std=c++20 -Wall -fopenmp -c PointwiseOps.cpp -o PointwiseOps.o
+    g++ -O3 -g -std=c++20 -Wall -fopenmp -c Reductions.cpp -o Reductions.o
+    g++ -O3 -g -std=c++20 -Wall -fopenmp -c Utilities.cpp -o Utilities.o
+    g++ -O3 -g -std=c++20 -Wall -fopenmp -fno-strict-aliasing -c MergedOp.cpp -o MergedOp.o
+    g++ main.o ConjugateGradients.o Laplacian.o PointwiseOps.o Reductions.o Utilities.o MergedOp.o -o solver -fopenmp
     ```
 
 ## Task 1
@@ -35,6 +36,9 @@
     - Print per kernel cumulative runtime
     - Print per kernel average runtime
 
+As can been seen in below diagram, the sum is almost equal to the total time taken, verifying that this step is done
+correctly.
+
 ### Timing Info
 
 | Line | Operation                     | 1-Thread Cumulative (ms) | 1-Thread Per Avg. (ms) | 16-Thread Cumulative (ms) | 16-Thread Avg. (ms) |
@@ -53,6 +57,7 @@
 | 9-12 | Saxpy(p, x, x, alpha)         | 6.85812                  | 0.0267895              | 7.11839                   | 0.0278062           |
 | 16   | Saxpy(p, x, x, alpha)         | 1772.35                  | 6.92325                | 1761.47                   | 6.88073             |
 | 16   | Saxpy(p, r, p, beta)          | 1673.02                  | 6.53522                | 1724.05                   | 6.73458             |
+| 1-18 | **Conjugate Gradients Sum**   | **16106.01218**          | -                      | **10825.82965**           | -                   |
 | 1-18 | **Conjugate Gradients Total** | **16112.5**              | -                      | **10833**                 | -                   |
 
 ## Task 2
@@ -63,13 +68,27 @@
 
 ![MergedComputeLaplacianInnerProduct](./_assets/MergedComputeLaplacianInnerProduct.png)
 
-Implementation can be found at `./task_2/MergedOp.cpp` at `line 17-29`
+Implementation can be found at `./task_2/MergedOp.cpp` at `line 16-28`
+
+As can be seen in the above and below timing info, for running with a single thread, before merging line 6, it takes
+`2349.49 + 2883.99 = 5233.48 ms` to complete; after merging, it takes `5062.44 ms` to complete.
+We can see a boost of `3.27%`.
+
+For running with all threads (16 threads), before merging line 6, it takes `1765.05 + 989.452 = 2754.502 ms` to complete;
+after merging, it takes `1895.96 ms` to complete. We can see a boost of `36.17%`.
 
 #### Merging Line 16
 
 ![MergedSaxpy](./_assets/MergedSaxpy.png)
 
-Implementation can be found at `./task_2/MergedOp.cpp` at `line 3-15`
+Implementation can be found at `./task_2/MergedOp.cpp` at `line 3-14`
+
+As can be seen in the above and below timing info, for running with a single thread, before merging line 16, it takes
+`1772.35 + 1673.02 = 3445.37 ms` to complete; after merging, it takes `2724.3 ms` to complete.
+We can see a boost of `20.93%`.
+
+For running with all threads (16 threads), before merging line 16, it takes `1761.47 + 1724.05 = 3485.52 ms` to complete;
+after merging, it takes `2829.22` to complete. We can see a boost of `18.83%`.
 
 ### How I Linked the File
 
@@ -106,8 +125,13 @@ for file in task_1/x.*.pgm; do
 done
 ```
 
-With line 6 and 16 being merged, the performance of single-core and multi-core both have an upgrade of `4.8%` and `10.6%`,
+With line 6 and 16 being merged, the performance of the application with single-core and multi-core both have an upgrade of `4.8%` and `10.6%`,
 respectively. Having only line 6 or only line 16 merged also shows a performance boost.
 
-The performance boost is likely due to less function calls, less memory access and better cache locality. We do **NOT**
-need to access the same place twice because they're already in the cache.
+The performance might be able to enhance if `OpenMP` is used in the `Saxpy` function, or in line 16. Also, some
+call of `Saxpy` has its pointer aliased, which prevents us from adding `-fno-strict-aliasing` flags to the files for
+more aggressive optimization, even though in the Merged version, I have tried to use `-fno-strict-aliasing` flag
+and do **NOT** see any performance improvements.
+
+In summary, the performance boost is likely due to less function calls, less memory access and better cache locality.
+We do **NOT** need to access the same place twice because they're already in the cache.
