@@ -24,7 +24,6 @@ Timer saxpy_timer_1;
 Timer saxpy_timer_2;
 Timer saxpy_timer_3;
 Timer saxpy_timer_4;
-Timer saxpy_timer_5;
 
 int main(int argc, char *argv[]) {
     using array_t = float(&)[XDIM][YDIM][ZDIM];
@@ -55,25 +54,23 @@ int main(int argc, char *argv[]) {
     timers.push_back(&saxpy_timer_2);
     timers.push_back(&saxpy_timer_3);
     timers.push_back(&saxpy_timer_4);
-    timers.push_back(&saxpy_timer_5);
     ;
 
     // clang-format off
     std::vector<std::string> timer_names = {
-        "ComputeLaplacian(x, z) ",
-        "ComputeLaplacian(p, z) ",
-        "Copy(r, p)             ",
-        "Copy(r, z)             ",
-        "InnerProduct(p, r)     ",
-        "InnerProduct(p, z)     ",
-        "InnerProduct(z, r)     ",
-        "Norm(r)                ",
-        "Norm(r)                ",
-        "Saxpy(z, f, r, -1)     ",
-        "Saxpy(z, r, r, -alpha) ",
-        "Saxpy(p, x, x, alpha)  ",
-        "Saxpy(p, x, x, alpha)  ",
-        "Saxpy(p, r, p, beta)   "
+        "ComputeLaplacian(x, z)              ",
+        "ComputeLaplacian(p, z)              ",
+        "Copy(r, p)                          ",
+        "Copy(r, z)                          ",
+        "InnerProduct(p, r)                  ",
+        "InnerProduct(p, z)                  ",
+        "InnerProduct(z, r)                  ",
+        "Norm(r)                             ",
+        "Norm(r)                             ",
+        "Saxpy(z, f, r, -1)                  ",
+        "Saxpy(z, r, r, -alpha)              ",
+        "Saxpy(p, x, x, alpha)               ",
+        "MergedSaxpy(p, x, r, x, alpha, beta)"
     };
     // clang-format on
 

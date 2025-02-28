@@ -24,7 +24,6 @@ extern Timer saxpy_timer_1;
 extern Timer saxpy_timer_2;
 extern Timer saxpy_timer_3;
 extern Timer saxpy_timer_4;
-extern Timer saxpy_timer_5;
 
 void ConjugateGradients(float (&x)[XDIM][YDIM][ZDIM],
                         const float (&f)[XDIM][YDIM][ZDIM],
@@ -104,11 +103,8 @@ void ConjugateGradients(float (&x)[XDIM][YDIM][ZDIM],
 
         // Algorithm : Line 16
         saxpy_timer_4.Restart();
-        Saxpy(p, x, x, alpha);
+        MergedSaxpy(p, x, r, x, alpha, beta);
         saxpy_timer_4.Pause();
-        saxpy_timer_5.Restart();
-        Saxpy(p, r, p, beta);
-        saxpy_timer_5.Pause();
 
         // if (writeIterations) WriteAsImage("x", x, k, 0, 127);
     }

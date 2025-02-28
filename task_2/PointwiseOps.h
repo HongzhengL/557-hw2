@@ -10,3 +10,10 @@ void Saxpy(const float (&x)[XDIM][YDIM][ZDIM],
            const float (&y)[XDIM][YDIM][ZDIM],
            float (&z)[XDIM][YDIM][ZDIM],
            const float scale);
+
+void MergedSaxpy(float (&x)[XDIM][YDIM][ZDIM],
+                 const float (&y)[XDIM][YDIM][ZDIM],
+                 const float (&z)[XDIM][YDIM][ZDIM],
+                 float (&p)[XDIM][YDIM][ZDIM],
+                 const float scale_1,
+                 const float scale_2);
