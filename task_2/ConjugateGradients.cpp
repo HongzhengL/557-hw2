@@ -9,7 +9,7 @@
 #include "Utilities.h"
 
 extern Timer laplacian_timer_1;
-extern Timer laplacian_timer_2;
+extern Timer laplacian_inner_product_timer;
 
 extern Timer copy_timer_1;
 extern Timer copy_timer_2;
@@ -59,10 +59,10 @@ void ConjugateGradients(float (&x)[XDIM][YDIM][ZDIM],
         std::cout << "Residual norm (nu) after " << k << " iterations = " << nu << std::endl;
 
         // Algorithm : Line 6
-        laplacian_timer_2.Restart();
+        laplacian_inner_product_timer.Restart();
         // ComputeLaplacian(p, z);
         float sigma = MergedComputeLaplacianInnerProduct(p, z);
-        laplacian_timer_2.Pause();
+        laplacian_inner_product_timer.Pause();
 
         // Algorithm : Line 7
         float alpha = rho / sigma;

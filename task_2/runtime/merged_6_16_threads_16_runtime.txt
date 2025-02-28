@@ -1,4 +1,4 @@
-[Initialization : 9.1725ms]
+[Initialization : 27.8706ms]
 Residual norm (nu) after 0 iterations = 1
 Residual norm (nu) after 1 iterations = 0.969231
 Residual norm (nu) after 2 iterations = 2.18664
@@ -257,33 +257,33 @@ Residual norm (nu) after 254 iterations = 0.00107536
 Residual norm (nu) after 255 iterations = 0.0012801
 Residual norm (nu) after 256 iterations = 0.00117106
 Conjugate Gradients terminated after 256 iterations; residual norm (nu) = 0.000975892
-[Conjugate Gradients : 9635.64ms]
+[Conjugate Gradients : 9687.6ms]
 
 ----------------------------------
 Per Kernel Cumulative:
-[ComputeLaplacian(x, z)              7.47667ms]
-[ComputeLaplacian(p, z)              1904.94ms]
-[Copy(r, p)                          4.89776ms]
-[Copy(r, z)                          1315.49ms]
-[InnerProduct(p, r)                  3.68039ms]
-[InnerProduct(z, r)                  978.098ms]
-[Norm(r)                             2.9048ms]
-[Norm(r)                             595.574ms]
-[Saxpy(z, f, r, -1)                  42.5993ms]
-[Saxpy(z, r, r, -alpha)              1938.6ms]
-[Saxpy(p, x, x, alpha)               7.58085ms]
-[MergedSaxpy(p, x, r, x, alpha, beta)2826.34ms]
+[ComputeLaplacian(x, z)                   14.2677ms]
+[MergedComputeLaplacianInnerProduct(p, z) 1895.96ms]
+[Copy(r, p)                               5.0267ms]
+[Copy(r, z)                               1331.44ms]
+[InnerProduct(p, r)                       3.60943ms]
+[InnerProduct(z, r)                       997.232ms]
+[Norm(r)                                  2.77454ms]
+[Norm(r)                                  618.402ms]
+[Saxpy(z, f, r, -1)                       43.7447ms]
+[Saxpy(z, r, r, -alpha)                   1930.35ms]
+[Saxpy(p, x, x, alpha)                    8.07225ms]
+[MergedSaxpy(p, x, r, x, alpha, beta)     2829.22ms]
 ----------------------------------
 Per Iteration Average:
-ComputeLaplacian(x, z)               : 0.0292057ms
-ComputeLaplacian(p, z)               : 7.44119ms
-Copy(r, p)                           : 0.0191319ms
-Copy(r, z)                           : 5.13862ms
-InnerProduct(p, r)                   : 0.0143765ms
-InnerProduct(z, r)                   : 3.82069ms
-Norm(r)                              : 0.0113469ms
-Norm(r)                              : 2.32646ms
-Saxpy(z, f, r, -1)                   : 0.166403ms
-Saxpy(z, r, r, -alpha)               : 7.57266ms
-Saxpy(p, x, x, alpha)                : 0.0296127ms
-MergedSaxpy(p, x, r, x, alpha, beta) : 11.0404ms
+ComputeLaplacian(x, z)                    : 0.0557334ms
+MergedComputeLaplacianInnerProduct(p, z)  : 7.4061ms
+Copy(r, p)                                : 0.0196355ms
+Copy(r, z)                                : 5.20093ms
+InnerProduct(p, r)                        : 0.0140993ms
+InnerProduct(z, r)                        : 3.89544ms
+Norm(r)                                   : 0.010838ms
+Norm(r)                                   : 2.41563ms
+Saxpy(z, f, r, -1)                        : 0.170878ms
+Saxpy(z, r, r, -alpha)                    : 7.54042ms
+Saxpy(p, x, x, alpha)                     : 0.0315322ms
+MergedSaxpy(p, x, r, x, alpha, beta)      : 11.0516ms

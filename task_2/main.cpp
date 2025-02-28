@@ -8,7 +8,7 @@
 #define ITERATIONS 256
 
 Timer laplacian_timer_1;
-Timer laplacian_timer_2;
+Timer laplacian_inner_product_timer;
 
 Timer copy_timer_1;
 Timer copy_timer_2;
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 
     std::vector<Timer *> timers;
     timers.push_back(&laplacian_timer_1);
-    timers.push_back(&laplacian_timer_2);
+    timers.push_back(&laplacian_inner_product_timer);
     timers.push_back(&copy_timer_1);
     timers.push_back(&copy_timer_2);
     timers.push_back(&inner_product_timer_1);
@@ -57,18 +57,18 @@ int main(int argc, char *argv[]) {
 
     // clang-format off
     std::vector<std::string> timer_names = {
-        "ComputeLaplacian(x, z)              ",
-        "ComputeLaplacian(p, z)              ",
-        "Copy(r, p)                          ",
-        "Copy(r, z)                          ",
-        "InnerProduct(p, r)                  ",
-        "InnerProduct(z, r)                  ",
-        "Norm(r)                             ",
-        "Norm(r)                             ",
-        "Saxpy(z, f, r, -1)                  ",
-        "Saxpy(z, r, r, -alpha)              ",
-        "Saxpy(p, x, x, alpha)               ",
-        "MergedSaxpy(p, x, r, x, alpha, beta)"
+        "ComputeLaplacian(x, z)                   ",
+        "MergedComputeLaplacianInnerProduct(p, z) ",
+        "Copy(r, p)                               ",
+        "Copy(r, z)                               ",
+        "InnerProduct(p, r)                       ",
+        "InnerProduct(z, r)                       ",
+        "Norm(r)                                  ",
+        "Norm(r)                                  ",
+        "Saxpy(z, f, r, -1)                       ",
+        "Saxpy(z, r, r, -alpha)                   ",
+        "Saxpy(p, x, x, alpha)                    ",
+        "MergedSaxpy(p, x, r, x, alpha, beta)     "
     };
     // clang-format on
 
